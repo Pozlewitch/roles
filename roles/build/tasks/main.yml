@@ -1,0 +1,17 @@
+---
+# tasks file for build
+- name: install packages
+  apt: name={{ item }} state=present
+  with_items:
+    - maven
+    - git
+    - default-jdk
+
+- name: git clone
+  git:
+   repo: https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
+   dest: /home/pozlewitch/java
+   clone: yes
+
+- name: mvn package
+  shell: cd /home/pozlewitch/java && mvn package

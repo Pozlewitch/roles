@@ -1,0 +1,13 @@
+---
+# tasks file for build
+- name: install packages
+  apt: name={{ item }} state=present
+  with_items:
+    - tomcat8
+    - default-jdk
+
+- name: Ensure tomcat is running
+  service: name=tomcat8 state=started
+
+- name: Copy war
+  shell: scp root@10.166.0.23:/home/pozlewitch/java/target/hello-1.0.war /var/lib/tomcat8/webapps
